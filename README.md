@@ -1,10 +1,10 @@
 **Simple Chatbox Application**
 
 1. **Overview:**
-   A straightforward chatbox application developed using HTML, CSS, and JavaScript.
+   A straightforward chatbox application developed using HTML, CSS, JavaScript & PHP.
 
 2. **Installation:**
-   - Copy the 'chatbox' folder into your webserver directory.
+   - Copy the 'Chatbox-Website' folder into your webserver directory.
    - Voila! Your chatbox is ready to roll!
 
 3. **Message Storage:**
