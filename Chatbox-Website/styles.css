@@ -1,0 +1,94 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chatbox {
+  overflow: auto;
+  border: 1px solid #fff;
+  padding: 10px;
+}
+
+#chatMessages p {
+  margin: 5px 0;
+}
+
+#formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* Add margin-top and margin-bottom to create space above and below the form */
+  margin: 20px 0;
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column; /* Align the form elements in a column */
+  align-items: center;
+}
+
+/* Adjust the width of the form elements for better fit on mobile */
+input[type="text"],
+input[type="submit"] {
+  width: 100%; /* Make the form elements full width on mobile */
+  max-width: 400px; /* Set a maximum width to avoid excessive stretching */
+  padding: 10px; /* Increase the padding for better touch interaction */
+  margin-bottom: 10px; /* Add some margin between form elements */
+  box-sizing: border-box; /* Include padding and border in the total width */
+  background-color: #000; /* Set the background color to black */
+  color: #fff; /* Set the text color to white */
+}
+
+/* Set a width for the nickname input to ensure it's visible */
+input[type="text"][name="name"] {
+  width: 100%; /* Adjust the width to your preference */
+  max-width: 300px; /* Set a maximum width to avoid excessive stretching */
+}
+
+/* Set the send button to black */
+input[type="submit"] {
+  cursor: pointer;
+  background-color: #000; /* Set the background color to black */
+  color: #fff; /* Set the text color to white */
+  border: none; /* Remove the border */
+}
+
+#chatbox::-webkit-scrollbar {
+  width: 8px;
+}
+
+#chatbox::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 4px;
+}
+
+#chatbox::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+  body {
+    font-size: 16px; /* Adjust the font size for better readability on smaller screens */
+  }
+  
+  #chatbox {
+    height: 200px; /* Adjust the height for a better chat experience on smaller screens */
+  }
+}

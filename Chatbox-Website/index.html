@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chatbox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <h1>Chatbox</h1>
+
+  <p style="text-align: center;"><a href="/Tic/" target="_blank">Play Tic-Tac-Toe</a></p>
+
+  <div id="chatbox" style="height: 400px;">
+    <div id="chatMessages">
+      <!-- The chat messages will be added here -->
+    </div>
+  </div>
+
+  <div id="popup" style="display: none;"></div>
+
+  <div id="formContainer">
+    <form id="chatForm">
+      <input type="text" name="name" size="15" maxlength="15" id="name" placeholder="Nickname" autocomplete="off" required>
+      <input type="text" name="message" size="40" maxlength="256" id="message" placeholder="Say Something!" autofocus required>
+      <input type="submit" value="Send">
+    </form>
+  </div>
+
+  <footer>
+    <p>c. 2023 | Hosted by <a href="https://bsllc.xyz"><b>Beanz</b></a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
