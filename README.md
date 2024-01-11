@@ -1,5 +1,21 @@
-(1.) simple chatbox application written in html css and javascript.
-(2.) just copy the chatbox folder into your webserver directory and bam, chatbox lol
-(3.) php is needed for this to work properly, please ensure it is installed.
-(4.) you also have a javascript game for your users to play, its tic tac toe. you can remove it if you please.
-just remove the folder for tic and remove the html line for it.
+**Simple Chatbox Application**
+
+1. **Overview:**
+   A straightforward chatbox application developed using HTML, CSS, and JavaScript.
+
+2. **Installation:**
+   - Copy the 'chatbox' folder into your webserver directory.
+   - Voila! Your chatbox is ready to roll!
+
+3. **Message Storage:**
+   - Messages are written to 'chatlog.txt,' eliminating the need for a database.
+
+4. **Keyword Blocking:**
+   - Certain keywords, such as 'php,' '.php,' 'javascript,' and '.js,' are blocked.
+
+5. **Dependencies:**
+   - PHP is essential for proper functionality; ensure it is installed on your server.
+
+6. **Additional Feature:**
+   - Enjoy a built-in JavaScript game - Tic Tac Toe - for users to play.
+   - If you prefer not to include it, simply remove the 'tic' folder and the corresponding HTML line.
