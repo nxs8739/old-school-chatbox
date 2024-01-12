@@ -18,4 +18,4 @@
 
 6. **Additional Feature:**
    - Enjoy a built-in JavaScript game - Tic Tac Toe - for users to play.
-   - If you prefer not to include it, simply remove the 'tic' folder and the corresponding HTML line.
+   - If you prefer not to include it, simply remove the 'tic' folder and the corresponding HTML line on line 11 in index.html.
