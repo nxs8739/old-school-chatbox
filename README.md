@@ -4,7 +4,7 @@
    - A straightforward chatbox/shoutbox like application developed using HTML, CSS, JavaScript & PHP.
 
 2. **Installation:**
-   - Copy the content of the 'Chatbox-Website' folder into your webserver directory.
+   - Copy the content's of the 'Chatbox-Website' folder into your webserver directory.
    - Voila! Your chatbox is ready to roll!
 
 3. **Message Storage:**
