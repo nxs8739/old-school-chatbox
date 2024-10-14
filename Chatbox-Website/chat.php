@@ -40,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // If there are more than 50 messages, remove the oldest ones
     if (count($lines) >= 50) {
-        $lines = array_slice($lines, count($lines) - 50);
+        // Trim the oldest messages, keeping only the latest 49 messages
+        $lines = array_slice($lines, -49);
     }
 
     // Write the new message to the file
