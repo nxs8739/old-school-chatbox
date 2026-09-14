@@ -57,7 +57,7 @@
 
 8. **License:**
 
-   * This project is released under the ZLIB License.
+   * This project is released under the MIT License.
    * See `LICENSE` for the full license text.
 
 ---
