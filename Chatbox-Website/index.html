@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<!--
+    _____  _               _     _
+  / ____| | |             | |   | |
+ | |      | |__     __ _  | |_  | |__     ___   __  __
+ | |      | '_ \   / _` | | __| | '_ \   / _ \  \ \/ /
+ | |____  | | | | | (_| | | |_  | |_) | | (_) |  >  <
+  \_____| |_| |_|  \__,_|  \__| |_.__/   \___/  /_/\_\
+
+
+  ____
+ |  _ \
+ | |_) |  _   _
+ |  _ <  | | | |
+ | |_) | | |_| |
+ |____/   \__, |
+           __/ |
+          |___/
+  ____
+ |  _ \
+ | |_) |   ___    __ _   _ __    ____
+ |  _ <   / _ \  / _` | | '_ \  |_  /
+ | |_) | |  __/ | (_| | | | | |  / /
+ |____/   \___|  \__,_| |_| |_| /___/
+
+ -->
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Chatbox</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <style>
+
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      display: block;
+    }
+
+    #chatbox {
+      overflow: auto;
+      border: 1px solid #fff;
+      padding: 10px;
+    }
+
+    #chatMessages p {
+      margin: 5px 0;
+    }
+
+    #formContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    form {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="text"],
+    input[type="submit"] {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      background-color: #000;
+      color: #fff;
+    }
+
+    input[type="text"][name="name"] {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    input[type="submit"] {
+      cursor: pointer;
+      background-color: #000;
+      color: #fff;
+      border: none;
+    }
+
+    #chatbox::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #chatbox::-webkit-scrollbar-thumb {
+      background-color: #666;
+      border-radius: 4px;
+    }
+
+    #chatbox::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        font-size: 16px;
+      }
+
+      #chatbox {
+        height: 200px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Chatbox</h1>
+
+
+  <div id="chatbox" style="height: 400px;">
+
+    <div id="chatMessages">
+      <!-- The chat messages will be added here -->
+    </div>
+
+  </div>
+
+
+  <div id="popup" style="display: none;"></div>
+
+
+  <div id="formContainer">
+
+    <form id="chatForm">
+
+      <input
+        type="text"
+        name="name"
+        size="15"
+        maxlength="15"
+        id="name"
+        placeholder="Nickname"
+        autocomplete="off"
+        required
+      >
+
+      <input
+        type="text"
+        name="message"
+        size="40"
+        maxlength="256"
+        id="message"
+        placeholder="Say Something!"
+        autofocus
+        required
+      >
+
+      <input
+        type="submit"
+        value="Send"
+      >
+
+    </form>
+
+  </div>
+
+
+  <footer>
+
+    <p>c. 2023</p>
+
+    <p>
+      The source code for this site is available on
+      <a href="https://github.com/nxs8739/old-school-chatbox">
+        <b><u>GitHub</u></b>
+      </a>
+    </p>
+
+  </footer>
+
+
+  <script>
+
+    /*
+     * Display chat messages.
+     */
+    function displayChatMessages(messages) {
+
+      const chatMessagesElement =
+        document.getElementById('chatMessages');
+
+      /*
+       * Clear the current messages.
+       */
+      chatMessagesElement.innerHTML = '';
+
+      /*
+       * Add each message as text.
+       *
+       * textContent is used instead of innerHTML so
+       * message contents cannot be interpreted as HTML.
+       */
+      messages.forEach((message) => {
+
+        const newMessageElement =
+          document.createElement('p');
+
+        newMessageElement.textContent = message;
+
+        chatMessagesElement.appendChild(
+          newMessageElement
+        );
+
+      });
+
+      scrollToBottom();
+
+    }
+
+
+    /*
+     * Fetch chat messages from chat.php.
+     *
+     * chat.php now reads the messages from SQLite.
+     */
+    function fetchChatMessages() {
+
+      fetch('chat.php')
+
+        .then((response) => {
+
+          if (!response.ok) {
+
+            throw new Error(
+              'HTTP error ' + response.status
+            );
+
+          }
+
+          return response.text();
+
+        })
+
+        .then((data) => {
+
+          /*
+           * PHP returns one message per line.
+           */
+          const messages = data
+            .split('\n')
+            .filter(
+              (message) =>
+                message.trim() !== ''
+            );
+
+          displayChatMessages(messages);
+
+        })
+
+        .catch((error) => {
+
+          console.error(
+            'Error fetching chat messages:',
+            error
+          );
+
+        });
+
+    }
+
+
+    /*
+     * Poll for new messages every 30 seconds.
+     */
+    setInterval(
+      fetchChatMessages,
+      30000
+    );
+
+
+    /*
+     * Submit a new chat message.
+     */
+    document
+      .getElementById('chatForm')
+      .addEventListener(
+        'submit',
+        async (event) => {
+
+          event.preventDefault();
+
+
+          /*
+           * Get the nickname.
+           */
+          const name =
+            document
+              .getElementById('name')
+              .value
+              .trim();
+
+
+          /*
+           * Get the message.
+           *
+           * We deliberately do NOT convert it to
+           * lowercase. The original capitalization
+           * is preserved in SQLite.
+           */
+          const message =
+            document
+              .getElementById('message')
+              .value
+              .trim();
+
+
+          /*
+           * Validate the fields.
+           */
+          if (
+            name === '' ||
+            message === ''
+          ) {
+
+            alert(
+              'Nickname and message are required.'
+            );
+
+            return;
+
+          }
+
+
+          /*
+           * Client-side keyword filter.
+           *
+           * PHP performs the authoritative filtering
+           * as well, because JavaScript can be bypassed.
+           */
+          const blockedKeywords = [
+            'js',
+            'javascript',
+            'php',
+            'script'
+          ];
+
+
+          /*
+           * Only create a lowercase copy for
+           * the keyword comparison.
+           */
+          const lowercaseMessage =
+            message.toLowerCase();
+
+
+          for (
+            const keyword of blockedKeywords
+          ) {
+
+            if (
+              lowercaseMessage.includes(keyword)
+            ) {
+
+              alert(
+                'Blocked keyword detected. Message not sent.'
+              );
+
+              return;
+
+            }
+
+          }
+
+
+          /*
+           * Send the message to chat.php.
+           */
+          try {
+
+            const response =
+              await fetch(
+                'chat.php',
+                {
+                  method: 'POST',
+
+                  body:
+                    new URLSearchParams({
+                      name: name,
+                      message: message
+                    }),
+
+                  headers: {
+                    'Content-Type':
+                      'application/x-www-form-urlencoded'
+                  }
+
+                }
+              );
+
+
+            /*
+             * Read the response from PHP.
+             */
+            const result =
+              await response.text();
+
+
+            /*
+             * Handle rejected requests.
+             */
+            if (!response.ok) {
+
+              alert(result);
+
+              return;
+
+            }
+
+
+            /*
+             * Reload the messages immediately.
+             */
+            fetchChatMessages();
+
+
+            /*
+             * Clear the message field.
+             *
+             * Keep the nickname so the user doesn't
+             * have to type it again.
+             */
+            document
+              .getElementById('message')
+              .value = '';
+
+
+            /*
+             * Put the cursor back in the message box.
+             */
+            document
+              .getElementById('message')
+              .focus();
+
+          }
+
+          catch (error) {
+
+            console.error(
+              'Error sending chat message:',
+              error
+            );
+
+            alert(
+              'Unable to send message.'
+            );
+
+          }
+
+        }
+      );
+
+
+    /*
+     * Scroll the chatbox to the bottom.
+     */
+    function scrollToBottom() {
+
+      const chatbox =
+        document.getElementById('chatbox');
+
+      chatbox.scrollTop =
+        chatbox.scrollHeight;
+
+    }
+
+
+    /*
+     * Load messages immediately when the page opens.
+     */
+    fetchChatMessages();
+
+  </script>
+
+</body>
+
+</html>
