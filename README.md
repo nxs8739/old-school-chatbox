@@ -58,7 +58,7 @@
 8. **License:**
 
    * This project is released under the MIT License.
-   * See `LICENSE` for the full license text.
+   * See [`LICENSE`](https://github.com/nxs8739/old-school-chatbox/blob/main/LICENSE.txt) for the full license text.
 
 ---
 
