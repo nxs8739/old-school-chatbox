@@ -7,16 +7,20 @@
 
 2. **Installation:**
 
-   * Copy the contents of the `Chatbox-Website` folder into your web server directory.
+   * Copy the project files to your web server.
+   * Set the `Chatbox-Website` folder as the web server's document root.
    * Make sure PHP is installed and the SQLite3 extension is enabled.
-   * The `chat.db` database file will automatically be created in the same directory as `chat.php` when the application is first run.
+   * The `data` directory will automatically be created outside the web root when the application is first run.
+   * The `chat.db` database file will automatically be created inside the `data` directory.
+   * No manual database or directory creation is required.
    * Voila! Your chatbox is ready to roll!
 
 3. **Message Storage:**
 
    * Messages are stored in an SQLite database named `chat.db`.
+   * The database is stored in the `data` directory outside the web server's document root.
    * SQLite is embedded directly into the application and does not require a separate database server such as MySQL or MariaDB.
-   * The database and required `messages` table are automatically created by `chat.php` if they do not already exist.
+   * The `data` directory and required `messages` table are automatically created by `chat.php` if they do not already exist.
    * The chatbox keeps only the newest 50 messages. Older messages are automatically deleted.
    * Messages are stored as plain text in the database. HTML escaping is performed when messages are sent to the browser.
 
@@ -27,6 +31,7 @@
    * Certain keywords, including `php`, `javascript`, and `script`, are blocked.
    * Keyword filtering is performed server-side because client-side JavaScript validation can be bypassed.
    * Usernames and messages are escaped with `htmlspecialchars()` when displayed in the browser to prevent submitted HTML from being interpreted as page content.
+   * The SQLite database is stored outside the web server's document root, preventing direct HTTP requests from accessing the database file.
 
 5. **Dependencies:**
 
@@ -38,14 +43,19 @@
 6. **Project Structure:**
 
    ```text
-   Chatbox-Website/
-   ├── index.html
-   ├── chat.php
-   └── chat.db
+   old-school-chatbox-1.03/
+   ├── Chatbox-Website/
+   │   ├── index.html
+   │   └── chat.php
+   │
+   └── data/
+       └── chat.db
    ```
 
+   * `Chatbox-Website/` contains the files served by the web server.
    * `index.html` contains the chatbox interface, styling, and JavaScript responsible for loading and submitting messages.
    * `chat.php` handles database operations, input validation, message submission, and message retrieval.
+   * `data/` stores application data outside the web server's document root.
    * `chat.db` is the SQLite database automatically created by the application.
 
 7. **Message Updates:**
@@ -59,9 +69,3 @@
 
    * This project is released under the MIT License.
    * See [`LICENSE`](https://github.com/nxs8739/old-school-chatbox/blob/main/LICENSE.txt) for the full license text.
-
----
-
-**Created by Beanz / Nathaniel**
-
-A small, simple chatbox application built with PHP and SQLite.
