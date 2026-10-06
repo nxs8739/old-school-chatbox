@@ -3,11 +3,25 @@
 /*
  * SQLite database.
  *
- * chat.db will automatically be created in the
- * same directory as this PHP file.
+ * The database is stored outside the web root.
+ * The data directory will automatically be created
+ * if it does not already exist.
  */
 
-$db = new SQLite3(__DIR__ . '/chat.db');
+$dataDir = __DIR__ . '/../data';
+$dbPath = $dataDir . '/chat.db';
+
+if (!is_dir($dataDir)) {
+
+    mkdir(
+        $dataDir,
+        0700,
+        true
+    );
+
+}
+
+$db = new SQLite3($dbPath);
 
 
 /*
