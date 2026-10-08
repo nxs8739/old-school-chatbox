@@ -9,9 +9,30 @@
 
    * Copy the project files to your web server.
    * Set the `Chatbox-Website` folder as the web server's document root.
-   * Keep the `Chatbox-Website` and `data` directories together under the same parent directory.
-   * Do not move the `Chatbox-Website` directory out of the project structure, as `chat.php` uses the parent directory to locate the `data` directory.
-   * The outer project directory can be renamed or moved as long as the `Chatbox-Website` and `data` directories remain together under the same parent directory.
+   * **Do not delete or rename any of the project folders after downloading the project.** The application relies on the included folder structure to locate its data directory correctly.
+   * The project can be downloaded from either the **Code** button or the **v1.03 release**. GitHub creates the outer folder automatically when downloading the ZIP.
+
+   **Code → Download ZIP:**
+
+   ```text
+   old-school-chatbox-main/
+   └── old-school-chatbox-main/
+       └── Chatbox-Website/
+           ├── index.html
+           └── chat.php
+   ```
+
+   **v1.03 Release → Source code (ZIP):**
+
+   ```text
+   old-school-chatbox-1.03/
+   └── old-school-chatbox-1.03/
+       └── Chatbox-Website/
+           ├── index.html
+           └── chat.php
+   ```
+
+   * Keep the downloaded folder structure intact. `chat.php` uses the project directory structure to locate the `data` directory outside the web root.
    * Make sure PHP is installed and the SQLite3 extension is enabled.
    * The `data` directory will automatically be created outside the web root when the application is first run.
    * The `chat.db` database file will automatically be created inside the `data` directory.
@@ -60,8 +81,6 @@
    * `chat.php` handles database operations, input validation, message submission, and message retrieval.
    * `data/` stores application data outside the web server's document root.
    * `chat.db` is the SQLite database automatically created by the application.
-   * `Chatbox-Website/` and `data/` must remain together under the same parent directory because `chat.php` locates `data/` relative to its own directory.
-   * The outer project directory can be renamed without affecting the application.
 
 7. **Message Updates:**
 
@@ -74,4 +93,3 @@
 
    * This project is released under the MIT License.
    * See [`LICENSE`](https://github.com/nxs8739/old-school-chatbox/blob/main/LICENSE.txt) for the full license text.
-
